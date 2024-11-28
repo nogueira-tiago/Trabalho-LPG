@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 		refri = malloc( sizeof( struct refrigerante ) * n );		
 		for( i = 0 ; i < n ; i++ ){
 			fscanf(recibo, " %[^\n]", &refri[i].nome);
-			fscanf(recibo, "%d", refri[i].volume );
+			fscanf(recibo, "%d", &refri[i].volume );
 			fscanf(recibo, " %[^\n]", &refri[i].apresentacao);
             fscanf(recibo, " %[^\n]", &refri[i].tipo);
 			fscanf(recibo, "%d %d %d", &refri[i].data.dia, &refri[i].data.mes, &refri[i].data.ano);
@@ -77,12 +77,12 @@ int main(int argc, char *argv[]) {
 	recibo = fopen( "refrigerantes.txt", "wt" );
 	fprintf( recibo, "%d\n", n);
 	for( i = 0 ; i < n ; i++ ){
-		fprintf(recibo, "%s\n", &refri[i].nome);
+		fprintf(recibo, "%s\n", refri[i].nome);
 		fprintf(recibo, "%d\n", refri[i].volume );
-		fprintf(recibo, "%s\n", &refri[i].apresentacao);
-        fprintf(recibo, "%s\n", &refri[i].tipo);
-		fprintf(recibo, "%d/%d/%d", &refri[i].data.dia, &refri[i].data.mes, &refri[i].data.ano);
-        fprintf(recibo, " %s\n%s", &refri[i].marca.nome, &refri[i].marca.pais);
+		fprintf(recibo, "%s\n", refri[i].apresentacao);
+        fprintf(recibo, "%s\n", refri[i].tipo);
+		fprintf(recibo, "%d/%d/%d", refri[i].data.dia, refri[i].data.mes, refri[i].data.ano);
+        fprintf(recibo, " %s\n%s", refri[i].marca.nome, refri[i].marca.pais);
 	}
 	
 	fclose ( recibo );
@@ -99,7 +99,7 @@ void le_refri( struct refrigerante *p ){
 	scanf("%d", &(*p).volume);
 	printf("Digite a apresentação: ");
 	scanf(" %[^\n]", p->apresentacao);
-    printf("Digite a tipo: ");
+    printf("Digite o tipo: ");
 	scanf(" %[^\n]", p->tipo);
     printf("Digite a data: ");
     le_data(&p->data);
@@ -111,6 +111,7 @@ void le_data( struct data *p ){
 	scanf("%d", &p->mes);
 	printf("Digite o ano: ");
 	scanf("%d", &p->ano);
+	printf("\n");
 }
 
 void mostra_refri( struct refrigerante p ){//ta dando bug pq a apresentacao aparece o tipo tbm
